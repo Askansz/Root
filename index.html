@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Askansz — Landing</title>
+  <meta name="description" content="Root landing page for Askansz — links to subdomains and projects." />
+  <meta name="color-scheme" content="dark">
+  <style>
+    :root{
+      --bg:#0b0b10;
+      --fg:#e9eef5;
+      --muted:#a9b3c1;
+      --accent: #78e8ff;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --ring: rgba(120,232,255,0.35);
+      --shadow: 0 6px 30px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --gap: 1rem;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--fg);
+      background:
+        radial-gradient(1200px 800px at 10% -10%, #1a2a6c22, transparent 60%),
+        radial-gradient(1000px 600px at 110% 0%, #b21f1f22, transparent 60%),
+        radial-gradient(1200px 700px at 50% 120%, #0f202722, transparent 60%),
+        linear-gradient(180deg, #0b0f17 0%, #0b0b10 60%, #08080c 100%);
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    .wrap{
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 0;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    header.hero{
+      margin-top: 6vh;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: clamp(1.2rem, 2.5vw, 2rem);
+      backdrop-filter: saturate(140%) blur(8px);
+      box-shadow: var(--shadow);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      font-weight:600;
+      letter-spacing:.2px;
+      padding:.5rem .8rem;
+      border-radius:999px;
+      border:1px solid var(--card-border);
+      background: rgba(255,255,255,0.03);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .badge .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent), 0 0 32px var(--ring);
+    }
+    h1{
+      margin: .8rem 0 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height:1.1;
+      letter-spacing: -0.5px;
+    }
+    .lead{
+      color: var(--muted);
+      margin: .8rem 0 0;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+
+    /* Grid of subdomains */
+    .grid{
+      display:grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      backdrop-filter: blur(6px) saturate(140%);
+      position:relative;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .card::after{
+      content:"";
+      position:absolute; inset: -30% -30% auto auto;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(closest-side, var(--ring), transparent 70%);
+      transform: translate3d(0,0,0);
+      opacity:.15; filter: blur(12px);
+      z-index: -1;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: color-mix(in oklab, var(--card-border), var(--accent) 30%);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.45), 0 0 0 1px var(--ring);
+    }
+    .card a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: .75rem;
+      text-decoration:none;
+      color: var(--fg);
+    }
+    .left{
+      display:flex; flex-direction:column; gap:.25rem;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.28rem .6rem; border-radius:999px;
+      font-size:.78rem; letter-spacing:.2px;
+      border:1px solid var(--card-border);
+      color: var(--muted);
+      background: rgba(0,0,0,0.25);
+    }
+    .title{
+      font-weight:700; font-size:1.12rem; letter-spacing:.2px;
+    }
+    .url{ color: var(--muted); font-size:.92rem; }
+    .arrow{
+      font-size:1.3rem; opacity:.9; transition: transform .25s ease;
+    }
+    .card:hover .arrow{ transform: translateX(4px); }
+
+    /* Responsive columns */
+    @media (min-width: 640px){
+      .card{ grid-column: span 6; }
+    }
+    @media (min-width: 980px){
+      .card{ grid-column: span 4; }
+    }
+
+    /* Footer from user (verbatim) */
+    footer{
+      margin-top: 3rem;
+      border-top: 1px solid var(--card-border);
+      padding: 1.1rem .5rem 2.2rem;
+      color: var(--muted);
+      display:flex;
+      flex-direction:column;
+      gap:.25rem;
+      align-items:center;
+    }
+    footer .contact{
+      margin-top:.3rem;
+    }
+    footer a{ color: var(--accent); text-decoration: none; }
+    footer a:hover{ text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="badge"><span class="dot"></span> askansz.com</span>
+      <h1>You're at the root.</h1>
+      <p class="lead">
+        I build things for the web and ship small, fast projects. I like clean UX, tidy code, and learning by making. 
+        This page is just a hub—jump into a subdomain below.
+      </p>
+    </header>
+
+    <section aria-label="Subdomains" class="grid">
+      <div class="card">
+        <a href="https://astrophotography.askansz.com">
+          <div class="left">
+            <span class="tag">Subdomain</span>
+            <span class="title">Astrophotography</span>
+            <span class="url">astrophotography.askansz.com</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="https://astrophotography.askansz.com">
+          <div class="left">
+            <span class="tag">Subdomain</span>
+            <span class="title">Runstreak</span>
+            <span class="url">runstreak.askansz.com</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+      
+      <!-- Add more subdomains by duplicating a .card block -->
+    </section>
+
+    <!-- Exact footer (saved to memory, used verbatim) -->
+    <footer>
+        <span>© 2025 Askansz</span>
+        <span>All rights reserved</span>
+        <span>Unauthorized use is prohibited</span>
+        <div class="contact">
+          Contact: <a href="mailto:copyright@askansz.com" id="emailLink">copyright@askansz.com</a>
+          <!-- <button class="copy-btn" id="copyBtn" type="button">Copy</button> -->
+        </div>
+    </footer>
+  </div>
+</body>
+</html>
